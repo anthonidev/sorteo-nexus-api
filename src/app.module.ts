@@ -5,8 +5,13 @@ import { ParticipantsModule } from './participants/participants.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(envs.mongoUri, {
-      dbName: envs.mongoDb,
+    MongooseModule.forRootAsync({
+      useFactory: () => {
+        return {
+          uri: envs.MONGO_URI,
+          dbName: envs.MONGO_DB,
+        };
+      },
     }),
     ParticipantsModule,
   ],

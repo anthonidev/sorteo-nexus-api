@@ -30,12 +30,10 @@ async function bootstrap() {
       allowedHeaders: ['Content-Type', 'Authorization'],
     });
 
-    await app.listen(envs.port);
+    await app.listen(envs.PORT);
 
-    logger.log(`🚀 Aplicación ejecutándose en: http://localhost:${envs.port}`);
-    logger.log(
-      `📚 Documentación disponible en: http://localhost:${envs.port}/participants`,
-    );
+    logger.log(`🚀 Aplicación ejecutándose en: http://localhost:${envs.PORT}`);
+
     logger.log(`🎲 API para sorteos lista para usar`);
   } catch (error) {
     logger.error('❌ Error durante el bootstrap:', error);

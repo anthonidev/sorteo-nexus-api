@@ -44,11 +44,8 @@ export class Participant {
 
 export const ParticipantSchema = SchemaFactory.createForClass(Participant);
 
-// Índices para optimizar consultas
-ParticipantSchema.index({ email: 1 }, { unique: true });
 ParticipantSchema.index({ createdAt: -1 });
 
-// Middleware para actualizar updatedAt
 ParticipantSchema.pre('save', function (next) {
   this.updatedAt = new Date();
   next();
