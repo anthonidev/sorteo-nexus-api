@@ -22,7 +22,13 @@ cp .env.example .env
 pnpm install
 ```
 
-4. Levantar el servidor
+4. Levantar la base de datos
+
+```bash
+$ docker-compose up -d
+```
+
+5. Levantar el servidor
 
 ```bash
 pnpm run start:dev
