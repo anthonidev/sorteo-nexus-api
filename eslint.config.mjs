@@ -9,9 +9,9 @@ export default tseslint.config(
     ignores: ['eslint.config.mjs'],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended, // Equivale a 'plugin:@typescript-eslint/recommended'
+  ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended, // Equivale a 'plugin:prettier/recommended'
+  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       globals: {

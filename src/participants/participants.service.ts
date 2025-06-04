@@ -1,10 +1,10 @@
-import { Injectable, ConflictException, Logger } from '@nestjs/common';
+import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Participant, ParticipantDocument } from './schemas/participant.schema';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { ParticipantResponseDto } from './dto/participant-response.dto';
 import { ParticipantsListResponseDto } from './dto/participants-list-response.dto';
+import { Participant, ParticipantDocument } from './schemas/participant.schema';
 
 @Injectable()
 export class ParticipantsService {
@@ -23,7 +23,6 @@ export class ParticipantsService {
         `Intentando registrar participante con email: ${createParticipantDto.email}`,
       );
 
-      // Verificar si el email ya existe
       const existingParticipant = await this.participantModel
         .findOne({
           email: createParticipantDto.email.toLowerCase(),
@@ -37,7 +36,6 @@ export class ParticipantsService {
         );
       }
 
-      // Crear nuevo participante
       const newParticipant = new this.participantModel(createParticipantDto);
       const savedParticipant = await newParticipant.save();
 
@@ -56,7 +54,6 @@ export class ParticipantsService {
         error.stack,
       );
 
-      // Manejar error de duplicado de MongoDB
       if (error.code === 11000) {
         throw new ConflictException(
           'Este email ya está registrado en el sorteo',
@@ -73,7 +70,7 @@ export class ParticipantsService {
 
       const participants = await this.participantModel
         .find()
-        .sort({ createdAt: -1 }) // Más recientes primero
+        .sort({ createdAt: -1 })
         .exec();
 
       const formattedParticipants = participants.map((participant) =>
