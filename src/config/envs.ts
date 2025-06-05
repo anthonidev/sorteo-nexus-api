@@ -19,8 +19,24 @@ const envsSchema = joi
     MONGO_URI: joi.string().required(),
     MONGO_DB: joi.string().required(),
     ORIGIN: joi
-      .array()
-      .items(joi.string().uri())
+      .alternatives()
+      .try(
+        joi.array().items(joi.string().uri()),
+        joi.string().custom((value, helpers) => {
+          try {
+            if (typeof value !== 'string') {
+              return helpers.error('any.invalid');
+            }
+            const parsed = JSON.parse(value);
+            if (!Array.isArray(parsed)) {
+              return helpers.error('any.invalid');
+            }
+            return parsed as string[];
+          } catch {
+            return helpers.error('any.invalid');
+          }
+        }),
+      )
       .default([
         'http://localhost:3000',
         'http://localhost:8000',
