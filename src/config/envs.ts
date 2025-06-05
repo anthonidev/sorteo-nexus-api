@@ -6,6 +6,7 @@ interface EnvVars {
   NODE_ENV: 'development' | 'production' | 'test';
   MONGO_URI: string;
   MONGO_DB: string;
+  ORIGIN: string[];
 }
 
 const envsSchema = joi
@@ -17,6 +18,14 @@ const envsSchema = joi
       .default('development'),
     MONGO_URI: joi.string().required(),
     MONGO_DB: joi.string().required(),
+    ORIGIN: joi
+      .array()
+      .items(joi.string().uri())
+      .default([
+        'http://localhost:3000',
+        'http://localhost:8000',
+        'http://localhost:4321',
+      ]),
   })
   .unknown(true);
 

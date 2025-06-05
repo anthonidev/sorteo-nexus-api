@@ -21,14 +21,13 @@ async function bootstrap() {
     );
 
     app.enableCors({
-      origin: ['http://localhost:3000', 'http://localhost:8000'],
+      origin: envs.ORIGIN,
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
     });
 
     await app.listen(envs.PORT);
 
-    logger.log(`🚀 Aplicación ejecutándose en: http://localhost:${envs.PORT}`);
+    logger.log(`🚀 Aplicación ejecutándose en el puerto ${envs.PORT}`);
 
     logger.log(`🎲 API para sorteos lista para usar`);
   } catch (error) {
