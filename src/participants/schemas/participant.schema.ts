@@ -5,7 +5,7 @@ export type ParticipantDocument = Participant & Document;
 
 @Schema({
   timestamps: true,
-  collection: 'participants',
+  collection: 'sorteo_21-06-2025_participants',
 })
 export class Participant {
   @Prop({
